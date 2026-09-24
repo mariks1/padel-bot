@@ -1,0 +1,17 @@
+services:
+  padel-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: padel-bot
+    restart: unless-stopped
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:?Add TELEGRAM_BOT_TOKEN to .env}
+      ALL_MENTIONS_CHAT_ID: ${ALL_MENTIONS_CHAT_ID:-}
+      PADEL_DATABASE_PATH: /app/data/padel.sqlite
+      TZ: Europe/Moscow
+    volumes:
+      - padel-data:/app/data
+
+volumes:
+  padel-data:
